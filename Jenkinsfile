@@ -5,16 +5,15 @@ pipeline {
         stage('Build') {
             agent {
                 docker {
-                    image 'node:18-alpine'
+                    image 'node:18'
                 }
             }
             steps {
-                 cleanWs()
                 sh '''
-                    ls -la
+                    rm -rf node_modules package-lock.json
+                    npm cache clean --force
                     npm install
                     npm run build
-                    ls -la
                 '''
             }
         }

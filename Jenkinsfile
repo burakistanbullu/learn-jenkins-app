@@ -9,6 +9,7 @@ pipeline {
                 }
             }
             steps {
+                 cleanWs()
                 sh '''
                     rm -rf node_modules
                     ls -la

@@ -12,6 +12,7 @@ pipeline {
                 sh '''
                     ls -la
                     rm -rf node_modules package-lock.json
+                    npm init
                     npm install
                     npm run build
                     ls -la

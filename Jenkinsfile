@@ -9,9 +9,13 @@ pipeline {
                     reuseNode true
                 }
             }
+            environment {
+                NPM_CONFIG_CACHE = './.npm-cache'
+            }
             steps {
                 sh '''
-                    ls -la
+                    mkdir -p ./.npm-cache
+                    ls -la 
                     node --version
                     npm --version
                     npm ci
@@ -22,3 +26,4 @@ pipeline {
         }
     }
 }
+

@@ -76,7 +76,7 @@ pipeline {
             }
             steps {
                 sh '''
-                    chown -R 992:989 "/.npm"
+                    export NPM_CONFIG_CACHE=/tmp/.npm
                     whoami && env
                     npm install netlify-cli --unsafe-perm
                     node_modules/.bin/netlify --version

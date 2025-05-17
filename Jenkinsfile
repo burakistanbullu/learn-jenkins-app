@@ -76,6 +76,7 @@ pipeline {
             }
             steps {
                 sh '''
+                    sudo chown -R 992:989 "/.npm"
                     whoami && env
                     npm install netlify-cli --unsafe-perm
                     node_modules/.bin/netlify --version

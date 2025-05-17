@@ -48,6 +48,9 @@ pipeline {
                     reuseNode true
                 }
             }
+          environment {
+                NPM_CONFIG_CACHE = './.npm-cache'
+            }
 
             steps {
                 sh '''

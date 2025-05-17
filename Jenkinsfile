@@ -3,67 +3,71 @@ pipeline {
     agent any
 
     stages {
-        // stage('Build') {
-        //     agent {
-        //         docker {
-        //             image 'node:18-alpine'
-        //             reuseNode true
-        //         }
-        //     }
-        //     environment {
-        //         NPM_CONFIG_CACHE = './.npm-cache'
-        //     }
-        //     steps {
-        //         sh '''
-        //             mkdir -p ./.npm-cache
-        //             ls -la 
-        //             node --version
-        //             npm --version
-        //             npm install
-        //             npm run build
-        //             ls -la
-        //         '''
-        //     }
-        // }
-        // stage('Tests') {
-        //     parallel {
-        //         stage('UnitTest') {
-        //         agent {
-        //             docker {
-        //                 image 'node:18-alpine'
-        //                 reuseNode true
-        //             }
-        //         }
+    //     stage('Build') {
+    //         agent {
+    //             docker {
+    //                 image 'node:18-alpine'
+    //                 reuseNode true
+    //             }
+    //         }
+    //         environment {
+    //             NPM_CONFIG_CACHE = './.npm-cache'
+    //         }
+    //         steps {
+    //             sh '''
+    //                 mkdir -p ./.npm-cache
+    //                 ls -la 
+    //                 node --version
+    //                 npm --version
+    //                 npm install
+    //                 npm run build
+    //                 ls -la
+    //             '''
+    //         }
+    //     }
+    //     stage('Tests') {
+    //         parallel {
+    //             stage('UnitTest') {
+    //             agent {
+    //                 docker {
+    //                     image 'node:18-alpine'
+    //                     reuseNode true
+    //                 }
+    //             }
 
-        //         steps {
-        //             sh '''
-        //                 test -f build/index.html
-        //                 npm test
-        //             '''
-        //         }
-        //     }
+    //             steps {
+    //                 sh '''
+    //                     test -f build/index.html
+    //                     npm test
+    //                 '''
+    //             }
+    //         }
 
-        // stage('E2E') {
-        //             agent {
-        //                 docker {
-        //                     image 'mcr.microsoft.com/playwright:v1.52.0-jammy'
-        //                     reuseNode true
-        //                 }
-        //             }
-        //         environment {
-        //                 NPM_CONFIG_CACHE = './.npm-cache'
-        //             }
+    //     stage('E2E') {
+    //                 agent {
+    //                     docker {
+    //                         image 'mcr.microsoft.com/playwright:v1.52.0-jammy'
+    //                         reuseNode true
+    //                     }
+    //                 }
+    //             environment {
+    //                     NPM_CONFIG_CACHE = './.npm-cache'
+    //                 }
 
-        //             steps {
-        //                 sh '''
-        //                     npm install serve
-        //                     node_modules/.bin/serve -s build &
-        //                     sleep 10
-        //                     npx playwright test --reporter=html
-        //                 '''
-        //             }
-        //         }
-        stage('Deploy') {
+    //                 steps {
+    //                     sh '''
+    //                         npm install serve
+    //                         node_modules/.bin/serve -s build &
+    //                         sleep 10
+    //                         npx playwright test --reporter=html
+    //                     '''
+    //                 }
+    //             }
+    //     }
+          
+    // }
+
+     stage('Deploy') {
             agent {
                 docker {
                     image 'node:18-alpine'
@@ -79,8 +83,6 @@ pipeline {
                     node_modules/.bin/netlify --version
                 '''
             }
-        }
-    }
     }
 
 

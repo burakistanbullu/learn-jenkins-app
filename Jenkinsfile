@@ -81,6 +81,7 @@ pipeline {
                 sh '''
                     npm install --prefix . netlify-cli --unsafe-perm
                     node_modules/.bin/netlify --version
+                    whoami && env
                 '''
             }
     }

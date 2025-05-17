@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 
@@ -13,7 +12,7 @@ pipeline {
             environment {
                 NPM_CONFIG_CACHE = './.npm-cache'
             }
-            ste{{{{ps {
+            steps {
                 sh '''
                     mkdir -p ./.npm-cache
                     ls -la 
@@ -24,33 +23,33 @@ pipeline {
                     ls -la
                 '''
             }
-        }}}}}
+        }
         stage('Tests') {
             parallel {
                 stage('UnitTest') {
-                agent {
-                    docker {
-                        image 'node:18-alpine'
-                        reuseNode true
+                    agent {
+                        docker {
+                            image 'node:18-alpine'
+                            reuseNode true
+                        }
+                    }
+
+                    steps {
+                        sh '''
+                            test -f build/index.html
+                            npm test
+                        '''
                     }
                 }
 
-                steps {
-                    sh '''
-                        test -f build/index.html
-                        npm test
-                    '''
-                }
-            }
-
-        stage('E2E') {
+                stage('E2E') {
                     agent {
                         docker {
                             image 'mcr.microsoft.com/playwright:v1.52.0-jammy'
                             reuseNode true
                         }
                     }
-                environment {
+                    environment {
                         NPM_CONFIG_CACHE = './.npm-cache'
                     }
 
@@ -63,11 +62,10 @@ pipeline {
                         '''
                     }
                 }
+            }
         }
-          
-    }
 
-     stage('Deploy') {
+        stage('Deploy') {
             agent {
                 docker {
                     image 'node:18-alpine'
@@ -81,11 +79,10 @@ pipeline {
                     node_modules/.bin/netlify --version
                 '''
             }
+        }
     }
 
-
-  }
-   post {
+    post {
         always {
             junit 'jest-results/junit.xml'
             publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, icon: '', keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])

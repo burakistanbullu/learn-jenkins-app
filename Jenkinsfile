@@ -69,10 +69,10 @@ pipeline {
                     image 'node:18-alpine'
                     reuseNode true
                 }
-                  environment {
+            }
+             environment {
                         NPM_CONFIG_CACHE = './.npm-cache'
                     }
-            }
             steps {
                 sh '''
                     npm install netlify-cli@20.1.1

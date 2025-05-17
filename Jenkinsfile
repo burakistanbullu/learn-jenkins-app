@@ -71,13 +71,14 @@ pipeline {
             agent {
                 docker {
                     image 'node:18-alpine'
-                    args '-u root'
                     reuseNode true
+                    args '-u root'
                 }
             }
             steps {
                 sh '''
-                   npx netlify-cli --version
+                    npm install netlify-cli
+                    node_modules/.bin/netlify --version
                 '''
             }
     }

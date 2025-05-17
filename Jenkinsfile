@@ -70,18 +70,15 @@ pipeline {
      stage('Deploy') {
             agent {
                 docker {
-                    image 'node:18'
+                    image 'node:18-alpine'
                     reuseNode true
                 }
             }
-             environment {
-                        NPM_CONFIG_CACHE = './.npm-cache'
-                    }
             steps {
                 sh '''
-                    npm install --prefix . netlify-cli --unsafe-perm
-                    node_modules/.bin/netlify --version
                     whoami && env
+                    npm install netlify-cli --unsafe-perm
+                    node_modules/.bin/netlify --version
                 '''
             }
     }

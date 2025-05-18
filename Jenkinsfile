@@ -19,6 +19,7 @@ pipeline {
             }
             steps {
                 sh '''
+                    echo "Small change to test SCM polling"
                     mkdir -p ./.npm-cache
                     ls -la 
                     node --version
